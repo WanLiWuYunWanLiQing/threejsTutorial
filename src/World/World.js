@@ -1,11 +1,14 @@
 import { createCamera } from './components/camera.js';
-import { createCube } from './components/cube.js';
 import { createLights } from './components/lights.js';
 import { createScene } from './components/scene.js';
+import { createAxesHelper, createGridHelper } from './components/helpers.js';
 
+import { createControls } from './systems/controls.js';
 import { createRenderer } from './systems/renderer.js';
 import { Resizer } from './systems/Resizer.js';
 import { Loop } from './systems/Loop.js';
+
+import { Train } from '../../assets/models/train/Train.js';
 
 let camera;
 let renderer;
@@ -20,12 +23,15 @@ class World {
         loop = new Loop(scene, camera, renderer);
         container.append(renderer.domElement);
 
-        const cube = createCube();
-        const light = createLights();
+        const controls = createControls(camera, renderer.domElement);
+        // 按需渲染 controls 的方法
+        // controls.addEventListener('change', () => { this.render(); });
+        const { mainLight, ambientLight } = createLights();
+        const train = new Train();
 
-        loop.updatables.push(cube);
 
-        scene.add(cube, light);
+        loop.updatables.push(controls);
+        scene.add(ambientLight, mainLight, train);
 
         const resizer = new Resizer(container, camera, renderer);
     }
