@@ -36,7 +36,10 @@ class World {
 
     async init() {
         const { parrot, flamingo, stork } = await loadBirds();
+
         controls.target.copy(parrot.position);
+
+        loop.updatables.push(parrot, flamingo, stork);
         scene.add(parrot, flamingo, stork);
     }
 
@@ -49,7 +52,6 @@ class World {
     start() {
         loop.start();
     }
-
 
     stop() {
         loop.stop();
