@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@models/*": ["assets/models/*"],
+      "@textures/*": ["assets/textures/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
